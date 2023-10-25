@@ -2,7 +2,6 @@ package com.board.projectboard.repository.querydsl;
 
 import com.board.projectboard.domain.Article;
 import com.board.projectboard.domain.QArticle;
-import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
