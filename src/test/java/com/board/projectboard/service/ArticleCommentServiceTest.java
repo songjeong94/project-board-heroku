@@ -2,6 +2,7 @@ package com.board.projectboard.service;
 
 import com.board.projectboard.domain.Article;
 import com.board.projectboard.domain.ArticleComment;
+import com.board.projectboard.domain.Hashtag;
 import com.board.projectboard.domain.UserAccount;
 import com.board.projectboard.dto.ArticleCommentDto;
 import com.board.projectboard.dto.UserAccountDto;
@@ -22,6 +23,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
+
+import java.util.Set;
+
 
 @DisplayName("비즈니스 로직 - 댓글")
 @ExtendWith(MockitoExtension.class)
@@ -164,7 +168,7 @@ class ArticleCommentServiceTest {
 
     private ArticleComment createArticleComment(String content) {
         return ArticleComment.of(
-                Article.of(createUserAccount(), "title", "content", "hashtag"),
+                createArticle(),
                 createUserAccount(),
                 content
         );
@@ -181,12 +185,18 @@ class ArticleCommentServiceTest {
     }
 
     private Article createArticle() {
-        return Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
-                "content",
-                "#java"
+                "content"
         );
+        article.addHashtags(Set.of(createHashtag(article)));
+
+        return article;
+    }
+
+    private Hashtag createHashtag(Article article) {
+        return Hashtag.of("java");
     }
 
 }
